@@ -30,12 +30,12 @@ def topic(request, topic_ids):
 
 @login_required
 def new_topic(request): 
-    """添加新主题""" 
+    """娣诲姞鏂颁富棰�""" 
     if request.method != 'POST': 
-        # 未提交数据：创建一个新表单
+        # 鏈彁浜ゆ暟鎹細鍒涘缓涓�涓柊琛ㄥ崟
         form = TopicForm() 
     else: 
-        # POST提交的数据,对数据进行处理
+        # POST鎻愪氦鐨勬暟鎹�,瀵规暟鎹繘琛屽鐞�
         form = TopicForm(request.POST) 
         if form.is_valid(): 
             new_topic = form.save(commit=False) 
@@ -47,13 +47,13 @@ def new_topic(request):
 
 @login_required
 def new_entry(request, topic_id): 
-    """在特定的主题中添加新条目""" 
+    """新增加内容""" 
     topic = Topic.objects.get(id=topic_id) 
     if request.method != 'POST':
-        # 未提交数据,创建一个空表单
+        # 鏈彁浜ゆ暟鎹�,鍒涘缓涓�涓┖琛ㄥ崟
         form = EntryForm()
     else: 
-        # POST提交的数据,对数据进行处理
+        # POST鎻愪氦鐨勬暟鎹�,瀵规暟鎹繘琛屽鐞�
         form = EntryForm(data=request.POST) 
     if form.is_valid(): 
         new_entry = form.save(commit=False) 
@@ -66,16 +66,16 @@ def new_entry(request, topic_id):
 
 @login_required
 def edit_entry(request, entry_id): 
-    """编辑既有条目""" 
+    """缂栬緫鏃㈡湁鏉＄洰""" 
     entry = Entry.objects.get(id=entry_id) 
     topic = entry.topic 
     if topic.owner != request.user: 
         raise Http404
     if request.method != 'POST': 
-        # 初次请求，使用当前条目填充表单
+        # 鍒濇璇锋眰锛屼娇鐢ㄥ綋鍓嶆潯鐩～鍏呰〃鍗�
         form = EntryForm(instance=entry) 
     else: 
-        # POST提交的数据，对数据进行处理
+        # POST鎻愪氦鐨勬暟鎹紝瀵规暟鎹繘琛屽鐞�
         form = EntryForm(instance=entry, data=request.POST) 
         if form.is_valid(): 
             form.save() 
