@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect,Http404
 from django.urls import reverse
 from .forms import TopicForm, EntryForm
 from django.contrib.auth.decorators import login_required
-
+#用于对链接申请做出回应
 # Create your views here.
 def index(request): 
     return render(request, 'learning_logs\index.html')
